@@ -1,0 +1,9 @@
+:global(.table-hover) tbody tr {
+  &:local(.closed) {
+    color: lightgray;
+
+    &:hover {
+      color: lightgray;
+    }
+  }
+}
