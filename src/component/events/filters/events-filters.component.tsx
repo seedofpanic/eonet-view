@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import {eonetEventsState} from "../../../store/eonetEvents";
 import Col from "react-bootstrap/Col";
 import moment, {Moment} from "moment";
+import styles from './events-filters.module.scss';
 
 const dateRegExp = /\d{2}\/\d{2}\/\d{4}/;
 
@@ -11,8 +12,7 @@ export class EventsFiltersComponent extends React.Component {
     to = '';
 
     render() {
-        return <tr>
-            <th></th>
+        return <tr data-testid="events-filters">
             <th></th>
             <th></th>
             <th>
@@ -24,13 +24,13 @@ export class EventsFiltersComponent extends React.Component {
             <th></th>
             <th>
                 <Form.Row>
-                    <Form.Group as={Col} md="6">
+                    <Form.Group as={Col} md="6" className={styles['filter-form-group']}>
                         <Form.Control type="text"
                                       onChange={(event: any) => this.setDateFrom(event.target.value)}
                                       placeholder="From dd/mm/yyyy"
                         />
                     </Form.Group>
-                    <Form.Group as={Col} md="6">
+                    <Form.Group as={Col} md="6" className={styles['filter-form-group']}>
                         <Form.Control type="text"
                                       onChange={(event: any) => this.setDateTo(event.target.value)}
                                       placeholder="To dd/mm/yyyy"

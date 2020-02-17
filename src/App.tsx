@@ -9,7 +9,8 @@ export class AppComponent extends React.Component {
   render() {
     return (
         <div className="App">
-            <EventsComponent events={eonetEventsState.sortedEvents} sortFields={eonetEventsState.sortFields}/>
+            <EventsComponent events={eonetEventsState.sortedEvents}
+                             sortFields={eonetEventsState.sortFields}/>
         </div>
     );
   }

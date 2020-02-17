@@ -7,20 +7,19 @@ export class EventsHeadersComponent extends React.Component<{sortFields: Sortabl
     render() {
         const {sortFields} = this.props;
 
-        return <tr>
+        return <tr data-testid="events-headers">
             <th>#</th>
             <th>title</th>
-            <th>description</th>
-            <th onClick={() => this.sortBy('category')} className={styles.sortable}>
+            <th style={{minWidth: 150}} onClick={() => this.sortBy('category')} className={styles.sortable}>
                 <span className={styles['sortable-text']}>categories </span>
                 {this.renderSortBadge(sortFields.category)}
             </th>
             <th>sources</th>
-            <th onClick={() => this.sortBy('date')} className={styles.sortable}>
+            <th style={{minWidth: 340}} onClick={() => this.sortBy('date')} className={styles.sortable}>
                 <span className={styles['sortable-text']}>geometries </span>
                 {this.renderSortBadge(sortFields.date)}
             </th>
-            <th onClick={() => this.sortBy('status')} className={styles.sortable}>
+            <th style={{minWidth: 100}} onClick={() => this.sortBy('status')} className={styles.sortable}>
                 <span className={styles['sortable-text']}>status </span>
                 {this.renderSortBadge(sortFields.status)}
             </th>

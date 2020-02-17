@@ -6,6 +6,6 @@ export class SourceComponent extends React.Component<{source: EonetSource, close
     render() {
         const {source, closed} = this.props;
 
-        return <a className={closed ? styles.disabled : ''} href={source.url} target="_blank" rel="noopener noreferrer">{source.id}</a>;
+        return <a data-testid="source" className={closed ? styles.disabled : ''} href={source.url} target="_blank" rel="noopener noreferrer">{source.id}</a>;
     }
 }

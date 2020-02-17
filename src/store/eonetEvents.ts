@@ -1,4 +1,4 @@
-import {computed, observable, toJS} from 'mobx';
+import {computed, observable} from 'mobx';
 import {EonetEventsResponse} from "../models/eonetEventsResponse";
 import {EonetEvent} from "../models/eonetEvent";
 import {EonetGeometry} from "../models/eonetGeometry";
