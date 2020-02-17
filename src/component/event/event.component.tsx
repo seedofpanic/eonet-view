@@ -5,7 +5,9 @@ import {CategoryComponent} from '../category/category.component';
 import { EventDetailsComponent } from '../eventDetails/eventDetails.component';
 import {SourceComponent} from '../source/source.component';
 import styles from './event.module.scss';
+import {observer} from "mobx-react";
 
+@observer
 export class EventComponent extends React.Component<{event: EonetEvent}, {showDescription: boolean}> {
     state = {
         showDescription: false

@@ -1,8 +1,12 @@
-:local(.events-controls) {
+:local(.loading) {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
-  max-width: 400px;
-}
-
-:local(.form-box) {
-  padding: 10px;
+  height: 100%;
+  background: #d3d3d3aa;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

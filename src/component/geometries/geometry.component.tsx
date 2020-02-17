@@ -16,6 +16,10 @@ export class GeometryComponent extends React.Component<{geometry: EonetGeometry}
 
     renderMapLink(geometry: EonetGeometry) {
         // TODO: support multiple points and polygons
+        if (!geometry.coordinates || !(geometry.coordinates.length === 2)) {
+            return '';
+        }
+
         const coords = `${geometry.coordinates[1]},${geometry.coordinates[0]}`;
 
         return `https://maps.google.com/maps?q=${coords}&ll=${coords}&z=17`;

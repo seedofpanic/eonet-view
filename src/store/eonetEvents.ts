@@ -38,9 +38,16 @@ export class EonetEvents {
     } = {
         date: {}
     };
+    @observable loading = false;
 
     fetchEvents(limit: string, days: string) {
+        if (this.loading) {
+            return;
+        }
+
         const filters = [];
+
+        this.loading = true;
 
         if (limit) {
             filters.push(`limit=${limit}`);
@@ -54,16 +61,17 @@ export class EonetEvents {
             .then(res => res.json())
             .catch(error => {
                 console.error(error);
+                return [];
             })
             .then((eventsResponse: EonetEventsResponse) => {
                 this.events = eventsResponse.events;
-                console.log(eventsResponse);
+                this.loading = false;
             });
     }
 
     @computed
     get sortedEvents(): EonetEvent[] {
-        let events = this.events;
+        let events = this.events.slice();
 
         events = this.filterByStatus(events);
         events = this.filterByDate(events);
@@ -100,7 +108,7 @@ export class EonetEvents {
         }
     }
 
-    filterByStatus(events: EonetEvent[]) {
+    private filterByStatus(events: EonetEvent[]) {
         const {status} = this.filter;
 
         if (!status) {

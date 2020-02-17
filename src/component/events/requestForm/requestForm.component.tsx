@@ -4,7 +4,8 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import { eonetEventsState } from '../../../store/eonetEvents';
-import styles from '../events.module.scss';
+import styles from './requestForm.module.scss';
+import Spinner from "react-bootstrap/Spinner";
 
 export class RequestFormComponent extends React.Component {
     limit = '500';
@@ -12,7 +13,7 @@ export class RequestFormComponent extends React.Component {
 
     render() {
         return <Card data-testid="events-request-form">
-            <Card.Body>
+            <Card.Body className={styles['card-body']}>
                 <div className={styles['events-controls']}>
                     <Form.Row>
                         <Form.Group as={Col} md="6">
