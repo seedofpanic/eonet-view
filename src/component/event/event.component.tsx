@@ -21,7 +21,7 @@ export class EventComponent extends React.Component<{event: EonetEvent}, {showDe
                 <td>{event.title}</td>
                 <td>{event.categories.map(category => <CategoryComponent key={category.id} category={category}/>)}</td>
                 <td>{event.sources.map(source => <SourceComponent key={source.id} source={source} closed={event.closed}/>)}</td>
-                <td>{event.geometries.length}</td>
+                <td data-testid="geometry-td">{event.geometries.length}</td>
                 <td>{event.closed ? 'closed' : 'open'}</td>
             </tr>
             <tr data-testid="event-body">

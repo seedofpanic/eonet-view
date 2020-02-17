@@ -50,13 +50,14 @@ export class EonetEvents {
             filters.push(`limit=${days}`);
         }
 
-        fetch('https://eonet.sci.gsfc.nasa.gov/api/v2.1/events?' + filters.join('&'))
+        return fetch('https://eonet.sci.gsfc.nasa.gov/api/v2.1/events?' + filters.join('&'))
             .then(res => res.json())
             .catch(error => {
-
+                console.error(error);
             })
             .then((eventsResponse: EonetEventsResponse) => {
-                this.events = eventsResponse.events
+                this.events = eventsResponse.events;
+                console.log(eventsResponse);
             });
     }
 
@@ -89,16 +90,14 @@ export class EonetEvents {
         return events;
     }
 
-    filterByCategory(events: EonetEvent[]) {
-        const {category} = this.filter;
-
-        if (!category) {
-            return events;
+    toggleSort(field: SortableField) {
+        if (!this.sortFields[field]) {
+            this.sortFields[field] = 'up';
+        } else if (this.sortFields[field] === 'up') {
+            this.sortFields[field] = 'down';
+        } else {
+            this.sortFields[field] = '';
         }
-
-        const lowerCategory = category.toLowerCase();
-        return events.filter((event) =>
-            event.categories.some(c => c.title.toLowerCase().includes(lowerCategory)))
     }
 
     filterByStatus(events: EonetEvent[]) {
@@ -113,7 +112,19 @@ export class EonetEvents {
         return events.filter((event) => filterClosed ? event.closed : !event.closed)
     }
 
-    filterByDate(events: EonetEvent[]) {
+    private filterByCategory(events: EonetEvent[]) {
+        const {category} = this.filter;
+
+        if (!category) {
+            return events;
+        }
+
+        const lowerCategory = category.toLowerCase();
+        return events.filter((event) =>
+            event.categories.some(c => c.title.toLowerCase().includes(lowerCategory)))
+    }
+
+    private filterByDate(events: EonetEvent[]) {
         const {from, to} = this.filter.date;
 
         if (!(from || to)) {
@@ -123,7 +134,7 @@ export class EonetEvents {
         return events.filter((event) => this.filterByGeometries(event.geometries, from as Moment, to as Moment));
     }
 
-    sortByDate(a: EonetEvent, b: EonetEvent) {
+    private sortByDate(a: EonetEvent, b: EonetEvent) {
         const aHasGeometries = !!a.geometries.length;
         const bHasGeometries = !!b.geometries.length;
 
@@ -135,24 +146,14 @@ export class EonetEvents {
             * orderSign(this.sortFields.date);
     }
 
-    sortByStatus(a: EonetEvent, b: EonetEvent) {
+    private sortByStatus(a: EonetEvent, b: EonetEvent) {
         return compareBools(a.closed, b.closed)
             * orderSign(this.sortFields.status);
     }
 
-    sortByCategory(a: EonetEvent, b: EonetEvent) {
+    private sortByCategory(a: EonetEvent, b: EonetEvent) {
         return compareStrings(a.categories[0].title, b.categories[0].title)
             * orderSign(this.sortFields.category);
-    }
-
-    toggleSort(field: SortableField) {
-        if (!this.sortFields[field]) {
-            this.sortFields[field] = 'up';
-        } else if (this.sortFields[field] === 'up') {
-            this.sortFields[field] = 'down';
-        } else {
-            this.sortFields[field] = '';
-        }
     }
 
     private filterByGeometries(geometries: EonetGeometry[], from: Moment, to: Moment) {

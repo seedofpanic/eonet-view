@@ -8,7 +8,7 @@ export interface EonetEvent {
     description: string;
     link: string;
     categories: EonetCategory[];
-    sources: EonetSource [],
-    geometries: EonetGeometry [];
+    sources: EonetSource[],
+    geometries: EonetGeometry[];
     closed?: boolean;
 }
